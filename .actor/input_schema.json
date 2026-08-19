@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "title": "PeerSpot Scraper Input",
+  "type": "object",
+  "properties": {
+    "searchQuery": {
+      "title": "Search Query",
+      "type": "string",
+      "description": "Search for products by keyword (e.g., 'CRM', 'firewall', 'cloud storage')",
+      "editor": "textfield"
+    },
+    "categoryUrl": {
+      "title": "Category URL",
+      "type": "string",
+      "description": "URL of a PeerSpot category page (e.g., https://www.peerspot.com/categories/firewalls)",
+      "editor": "textfield"
+    },
+    "productUrls": {
+      "title": "Product URLs",
+      "type": "array",
+      "description": "List of specific product review page URLs to scrape",
+      "editor": "stringList",
+      "items": {
+        "type": "string"
+      }
+    },
+    "maxResults": {
+      "title": "Max Results",
+      "type": "integer",
+      "description": "Maximum number of reviews to scrape",
+      "default": 100,
+      "minimum": 1,
+      "maximum": 10000
+    }
+  }
+}

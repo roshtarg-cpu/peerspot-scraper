@@ -1,0 +1,63 @@
+{
+  "actorSpecification": 1,
+  "name": "peerspot-scraper",
+  "title": "PeerSpot Reviews Scraper — B2B Software Reviews & Ratings",
+  "description": "Extract verified B2B software reviews, ratings, and user testimonials from PeerSpot.com. Get product comparisons, user insights, and enterprise tech recommendations. Works with Claude, ChatGPT, and AI agents via Apify MCP.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "dockerfile": "./Dockerfile",
+  "readme": "./README.md",
+  "output": {
+    "actorOutputSchemaVersion": 1,
+    "properties": {
+      "productName": {
+        "type": "string",
+        "title": "Product Name",
+        "description": "Name of the software product being reviewed",
+        "template": "{{{productName}}}"
+      },
+      "reviewText": {
+        "type": "string",
+        "title": "Review Text",
+        "description": "Full text of the review",
+        "template": "{{{reviewText}}}"
+      },
+      "rating": {
+        "type": "string",
+        "title": "Rating",
+        "description": "Star rating (1-5)",
+        "template": "{{{rating}}}"
+      },
+      "reviewerName": {
+        "type": "string",
+        "title": "Reviewer Name",
+        "description": "Name of the reviewer",
+        "template": "{{{reviewerName}}}"
+      },
+      "reviewerTitle": {
+        "type": "string",
+        "title": "Reviewer Title",
+        "description": "Job title and company of the reviewer",
+        "template": "{{{reviewerTitle}}}"
+      },
+      "reviewDate": {
+        "type": "string",
+        "title": "Review Date",
+        "description": "Date when the review was published",
+        "template": "{{{reviewDate}}}"
+      },
+      "sourceUrl": {
+        "type": "string",
+        "title": "Source URL",
+        "description": "URL of the product page",
+        "template": "{{{sourceUrl}}}"
+      },
+      "scrapedAt": {
+        "type": "string",
+        "title": "Scraped At",
+        "description": "Timestamp when the data was scraped",
+        "template": "{{{scrapedAt}}}"
+      }
+    }
+  }
+}

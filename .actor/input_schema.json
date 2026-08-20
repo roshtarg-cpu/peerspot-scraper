@@ -3,34 +3,29 @@
   "title": "PeerSpot Scraper Input",
   "type": "object",
   "properties": {
-    "searchQuery": {
-      "title": "Search Query",
+    "productName": {
+      "title": "Product Name",
       "type": "string",
-      "description": "Search for products by keyword (e.g., 'CRM', 'firewall', 'cloud storage')",
-      "editor": "textfield"
+      "description": "Name of the product to scrape reviews for (e.g., 'Microsoft Power BI', 'Fortinet FortiGate', 'VMware vSphere')",
+      "editor": "textfield",
+      "prefill": "Microsoft Power BI"
     },
-    "categoryUrl": {
-      "title": "Category URL",
-      "type": "string",
-      "description": "URL of a PeerSpot category page (e.g., https://www.peerspot.com/categories/firewalls)",
-      "editor": "textfield"
-    },
-    "productUrls": {
-      "title": "Product URLs",
-      "type": "array",
-      "description": "List of specific product review page URLs to scrape",
-      "editor": "stringList",
-      "items": {
-        "type": "string"
-      }
-    },
-    "maxResults": {
-      "title": "Max Results",
+    "maxReviews": {
+      "title": "Max Reviews",
       "type": "integer",
-      "description": "Maximum number of reviews to scrape",
-      "default": 100,
+      "description": "Maximum number of reviews to scrape per product",
+      "default": 50,
       "minimum": 1,
-      "maximum": 10000
+      "maximum": 500,
+      "prefill": 50
+    },
+    "includeComparisons": {
+      "title": "Include Product Comparisons",
+      "type": "boolean",
+      "description": "Also scrape product comparison pages",
+      "default": true,
+      "prefill": true
     }
-  }
+  },
+  "required": ["productName"]
 }

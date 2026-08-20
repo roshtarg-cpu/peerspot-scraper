@@ -183,45 +183,37 @@ async def main():
         
         # Get input
         actor_input = await Actor.get_input() or {}
-        search_query = actor_input.get('searchQuery', '')
-        category_url = actor_input.get('categoryUrl', '')
-        product_urls = actor_input.get('productUrls', [])
-        max_results = actor_input.get('maxResults', 100)
+        product_name = actor_input.get('productName', '')
+        max_reviews = actor_input.get('maxReviews', 50)
+        include_comparisons = actor_input.get('includeComparisons', True)
         
-        Actor.log.info(f'Input: search={search_query}, category={category_url}, products={len(product_urls)}, max={max_results}')
+        if not product_name:
+            Actor.log.error('❌ productName is required')
+            return
+        
+        # Convert product name to URL slug
+        # E.g., "Microsoft Power BI" -> "microsoft-power-bi"
+        url_slug = product_name.lower().replace(' ', '-').replace('_', '-')
+        product_url = f'https://www.peerspot.com/products/{url_slug}-reviews'
+        
+        Actor.log.info(f'Product: {product_name}')
+        Actor.log.info(f'URL: {product_url}')
+        Actor.log.info(f'Max reviews: {max_reviews}')
         
         results_count = 0
         
         async with httpx.AsyncClient() as client:
-            urls_to_scrape = list(product_urls)  # Start with provided URLs
+            urls_to_scrape = [product_url]
             
-            # If search query provided, get product URLs from search
-            if search_query:
-                search_products = await scrape_search_page(search_query, max_results, client)
-                urls_to_scrape.extend(search_products)
-            
-            # If category URL provided, get products from category
-            if category_url:
-                category_products = await scrape_category_page(category_url, client)
-                urls_to_scrape.extend(category_products)
-            
-            # Remove duplicates while preserving order
-            seen = set()
-            unique_urls = []
-            for url in urls_to_scrape:
-                if url not in seen:
-                    seen.add(url)
-                    unique_urls.append(url)
-            
-            Actor.log.info(f'Scraping {len(unique_urls)} product pages')
+            Actor.log.info(f'Scraping product page: {product_url}')
             
             # Scrape each product page
-            for idx, product_url in enumerate(unique_urls):
-                if results_count >= max_results:
-                    Actor.log.info(f'Reached max results ({max_results})')
+            for idx, product_url in enumerate(urls_to_scrape):
+                if results_count >= max_reviews:
+                    Actor.log.info(f'Reached max reviews ({max_reviews})')
                     break
                 
-                Actor.log.info(f'[{idx + 1}/{len(unique_urls)}] Scraping: {product_url}')
+                Actor.log.info(f'[{idx + 1}/{len(urls_to_scrape)}] Scraping: {product_url}')
                 
                 html = await fetch_page(product_url, client)
                 if not html:
@@ -233,7 +225,7 @@ async def main():
                 
                 # Push results immediately
                 for review in reviews:
-                    if results_count >= max_results:
+                    if results_count >= max_reviews:
                         break
                     
                     await Actor.push_data(review)

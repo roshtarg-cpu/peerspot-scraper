@@ -1,0 +1,33 @@
+ACTOR BUILD STATUS - peerspot-scraper
+=====================================
+
+BUILD: ✅ SUCCEEDED
+TEST:  ✅ SUCCEEDED (5 reviews scraped)
+DATA:  ✅ VERIFIED (real PeerSpot reviews extracted)
+
+PENDING MANUAL ACTIONS:
+=======================
+
+1. SET PRICING (CRITICAL)
+   - Go to: https://console.apify.com/actors/CN001ec5fYP2RbD6M/settings
+   - Add PAY_PER_EVENT pricing:
+     * Result: $0.005 per review (primary)
+     * Actor start: $0.05 one-time (secondary)
+   - See: PRICING_SETUP.md for details
+
+2. PUBLISH ACTOR (when daily limit resets)
+   - Currently blocked: 5/5 daily publications used
+   - Auto-publish in next cron cycle
+
+3. UPLOAD ICON (optional)
+   - File: actor-image.png (committed to GitHub)
+   - Upload at: https://console.apify.com/actors/CN001ec5fYP2RbD6M/edit
+   - Or use: https://raw.githubusercontent.com/roshtarg-cpu/peerspot-scraper/main/actor-image.png
+
+ACTOR DETAILS:
+==============
+ID:     CN001ec5fYP2RbD6M
+Name:   peerspot-scraper
+Site:   peerspot.com
+Type:   B2B Software Reviews
+GitHub: https://github.com/roshtarg-cpu/peerspot-scraper

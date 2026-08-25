@@ -1,7 +1,7 @@
 {
   "actorSpecification": 1,
   "name": "peerspot-scraper",
-  "title": "PeerSpot Reviews Scraper — B2B Software Reviews & Ratings",
+  "title": "PeerSpot Reviews Scraper \u2014 B2B Software Reviews & Ratings",
   "description": "Extract verified B2B software reviews, ratings, and user testimonials from PeerSpot.com. Get product comparisons, user insights, and enterprise tech recommendations. Works with Claude, ChatGPT, and AI agents via Apify MCP.",
   "version": "0.1",
   "buildTag": "latest",
@@ -57,6 +57,28 @@
         "title": "Scraped At",
         "description": "Timestamp when the data was scraped",
         "template": "{{{scrapedAt}}}"
+      }
+    }
+  },
+  "storages": {
+    "dataset": {
+      "actorSpecification": 1,
+      "fields": {},
+      "views": {
+        "overview": {
+          "title": "Results",
+          "transformation": {
+            "fields": [
+              "productName",
+              "sourceUrl",
+              "scrapedAt",
+              "reviewText",
+              "rating",
+              "reviewerName",
+              "reviewerTitle"
+            ]
+          }
+        }
       }
     }
   }
